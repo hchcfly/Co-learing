@@ -74,6 +74,11 @@ https://blog.csdn.net/qq_35495339/article/details/92847819?ops_request_misc=%257
 #出现Compare & pull request绿色按钮
 https://www.5axxw.com/questions/content/qzq3j7
 ```
+## 每次git push git pull要输入密码
+
+```shell
+https://blog.csdn.net/love910809/article/details/124273642
+```
 
 
 
