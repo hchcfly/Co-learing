@@ -105,8 +105,18 @@ if a {
 + strings.Join()
 
 ```go
-
-
+name := "Tom"
+	age := "20"
+	msg := strings.Join([]string{name,age},",")
+	fmt.Printf("msg: %v\n",msg)
 ```
 
 > join会先根据字符串数组的内容,计算出一个拼接之后的长度,然后申请对应长度大小的内存,一个一个字符串填入,在已有一个数组的情况下,这种效率很高。本来没有需要构造的话,代价也不小.
+
++ buffer.WriteString()
+
+```go
+
+```
+
+> 可以当成可变字符使用,对内存的增长有优化,如果能预估字符串的长度,可以用buffer.Grow()接口来设置capacity.
