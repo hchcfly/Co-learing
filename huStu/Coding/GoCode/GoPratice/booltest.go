@@ -11,6 +11,14 @@ func main() {
 
 	b5 := true
 	b6 := false
+	age := 18
+
+	if age>=18 {
+		fmt.Println("you yes")
+	} else {
+		fmt.Println("you no")
+
+	}
 
 	fmt.Printf("b1: %v\n", b1)
 	fmt.Printf("b2: %v\n", b2)
@@ -18,6 +26,4 @@ func main() {
 	fmt.Printf("b4: %v\n", b4)
 	fmt.Printf("b5: %v\n", b5)
 	fmt.Printf("b6: %v\n", b6)
-	
-
 }
