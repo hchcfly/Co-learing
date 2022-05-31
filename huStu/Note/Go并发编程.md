@@ -62,3 +62,21 @@ runtime.GOMAXPROCS() //设置最大核心数
 3.如果没有可运行的case语句,且没有default语句,select将阻塞,直到某个case通信可以运行.
 
 ```
+
+## Golang Timer
+
+> 可以实现定时操作,定时器内部是通过channel实现的
+
++ 如何创建Timer
+
+```go
+//1
+timer1 := time.NewTimer(time.Second*2)
+//2
+<-time.After(time.Second*2)
+
+```
+
+## Golang Ticker (周期性定时器)
+
+
