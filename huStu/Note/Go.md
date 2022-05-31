@@ -368,11 +368,10 @@ func main() {
 
 ```go
 //初始化模块
-go mod init
+go mod init <ProjectName>
 
-//根据go.mod文件,依赖关系处理
+//根据go.mod文件,进行依赖关系处理
 go mod tidy
-
 
 ```
 
