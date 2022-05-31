@@ -21,7 +21,7 @@ func (dog Dog)eat() {
 }
 
 func (dog Dog)sleep() {
-	fmt.Println("Dog eat...")
+	fmt.Println("Dog sleep...")
 }
 
 //Cat实现Pet接口
@@ -30,7 +30,7 @@ func (cat Cat)eat() {
 }
 
 func (cat Cat)sleep() {
-	fmt.Println("Cat eat...")
+	fmt.Println("Cat sleep...")
 }
 
 type Person struct {
@@ -44,7 +44,12 @@ func (person Person)care(pet Pet) {
 }
 
 func main() {
-	dog := Dog{}
-	car := Cat{}
-	person :=
+	dog := Dog{
+	}
+	cat := Cat{
+	}
+	person := Person{
+	}
+	person.care(dog)
+	person.care(cat)
 }

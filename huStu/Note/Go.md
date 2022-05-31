@@ -264,7 +264,115 @@ type NewType type
 
 ## Go OCP原则
 
-> 开闭原则open=close Principle.对扩展是开放的,对修改是关闭的
+> 开闭原则open=close Principle.对扩展是开放的,对修改是关闭的.
+
+```go
+package main
+
+import "fmt"
+
+type Pet interface {
+	eat()
+	sleep()
+}
+
+type Dog struct {
+	name string
+}
+
+type Cat struct {
+	name string	
+}
+
+//Dog实现Pet接口
+func (dog Dog)eat() {
+	fmt.Println("Dog eat...")
+}
+
+func (dog Dog)sleep() {
+	fmt.Println("Dog sleep...")
+}
+
+//Cat实现Pet接口
+func (cat Cat)eat() {
+	fmt.Println("Cat eat...")
+}
+
+func (cat Cat)sleep() {
+	fmt.Println("Cat sleep...")
+}
+
+type Person struct {
+	
+}
 
 
+func (person Person)care(pet Pet) {
+	pet.eat()
+	pet.sleep()
+}
+
+func main() {
+	dog := Dog{
+	}
+	cat := Cat{
+	}
+	person := Person{
+    }
+    //同一个接口,不同的实现
+	person.care(dog)
+	person.care(cat)
+}
+
+```
+
+## Go 继承写法
+
+```go
+
+type Animal struct {
+    name string
+    age int
+}
+
+type Dog struct {
+    Aniaml
+    color string
+}
+
+func main() {
+    dog := Dog{
+		Animal{name:"hc",age:2},
+		"黑色",
+	}
+	dog.name()
+	dog.age()
+}
+```
+
+
+## Golang 构造函数ctor
+
+> Golang中没有构造函数的概念,但是可以使用函数来模拟构造函数的功能.
+
+
+## Golang包
+
+> 理解为文件夹
+
+## Golang包管理工具go module
+
+> golang1.11新加的特性,用来管理模块中包的依赖关系,之前需要GOPATH.
+
++ go mod使用方法
+
+```go
+//初始化模块
+go mod init
+
+//根据go.mod文件,依赖关系处理
+go mod tidy
+
+
+```
 
