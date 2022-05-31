@@ -24,6 +24,18 @@ go task()
 
 ## Golang WaitGroup
 
+> 相当于muduo中的 CountDownLatch
 > 实现两个协程间互相等待(同步)
 
 
+## Golang runtime
+
+```go
+
+runtime.Gosched() //让出CPU时间片,重新等待安排任务
+
+runtime.Goexit()  //退出当前协程
+
+runtime.GOMAXPROCS() //设置最大核心数
+
+```
