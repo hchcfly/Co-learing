@@ -13,6 +13,8 @@ func showMsg(msg string) {
 }
 
 func main() {
-	go showMsg("c++") //启动了一个协程
-	showMsg("golang")
+	go showMsg("c++") //启动了一个协程  goroutine1
+	go showMsg("golang")      //goroutine2
+	time.Sleep(time.Millisecond*2000)
+	fmt.Println("main end...")  
 }
