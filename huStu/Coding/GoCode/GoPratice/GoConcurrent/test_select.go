@@ -8,9 +8,6 @@ import (
 var chanInt = make(chan int)
 var chanStr =  make(chan string)
 
-
-
-
 func main() {
 	go func() {
 		defer close(chanInt)
