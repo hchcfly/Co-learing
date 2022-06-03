@@ -31,6 +31,7 @@ func main() {
     第一个参数：pattern string,
     第二个参数：handler func(ResponseWriter, *Request)
      */
+    //  使用默认的Mux
     http.HandleFunc("/", sayHello)           // 设置访问的路由
     /**
     第一个参数addr：监听地址
