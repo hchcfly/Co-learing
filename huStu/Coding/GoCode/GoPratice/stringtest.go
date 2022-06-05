@@ -37,10 +37,10 @@ func main() {
 	// fmt.Printf("msg: %v\n", msg)
 
 	//**********strings.Join()*******************//
-	// name := "Tom"
-	// age := "20"
-	// msg := strings.Join([]string{name,age},",")
-	// fmt.Printf("msg: %v\n",msg)
+	name := "Tom"
+	age := "20"
+	msg := strings.Join([]string{name,age},",")
+	fmt.Printf("msg: %v\n",msg)
 
 	//********buffer.WriteString()***************//
 	var buffer bytes.Buffer
