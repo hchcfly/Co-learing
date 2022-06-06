@@ -8,5 +8,8 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
-	beego.Router("/register", &controllers.RegisterController{})
+
+	beego.Router("/register", &controllers.RegisterController{})  //注册路由
+
+	beego.Router("/login", &controllers.LoginController{})   //登录路由 
 }
