@@ -15,4 +15,6 @@ func init() {
 
 	beego.Router("/exit",&controllers.ExitController{})  //退出路由
 
+	beego.Router("/article/add",&controllers.AddArticleController{})  //写文章路由
+
 }

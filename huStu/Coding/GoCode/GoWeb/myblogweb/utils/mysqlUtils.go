@@ -16,6 +16,7 @@ func InitMysql() {
 		//  建立连接数据库的信息
 		db, _ = sql.Open("mysql", "root:huchen12345677@tcp(127.0.0.1:3306)/myblogweb")
 		CreateTableWithUser()
+		CreateTableWithArticle()
 		fmt.Printf("db: %v\n", db)
 	}
 }
@@ -46,7 +47,22 @@ func CreateTableWithUser() {
 	ModifyDB(sql)
 }
 
-//  查询
+//  创建文章表
+func CreateTableWithArticle() {
+	sql := `CREATE TABLE IF NOT EXISTS article(
+		id INT(4) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		title VARCHAR(30),
+		author VARCHAR(20),
+		tags VARCHAR(30),
+		short VARCHAR(255),
+		content LONGTEXT,
+		createtime INT(10)
+		);`
+	ModifyDB(sql)
+
+}
+
+//  查询文章表
 func QueryRowDB(sql string) *sql.Row {
 	return db.QueryRow(sql)
 }

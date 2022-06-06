@@ -14,6 +14,7 @@ type BaseController struct {
 
 
 //判断是否登录
+//该函数会在调用其他方法前自动调用
 func (this *BaseController) Prepare() {
     loginuser := this.GetSession("loginuser")
     fmt.Println("loginuser---->", loginuser)
