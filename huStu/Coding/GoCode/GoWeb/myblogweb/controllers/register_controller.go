@@ -51,6 +51,7 @@ func (this *RegisterController) Post() {
 	if err != nil{
 		this.Data["json"] = map[string]interface{}{"code":0,"message":"注册失败"}
 	}else{
+		this.Redirect(beego.URLFor("LoginController.Get"),302)
 		this.Data["json"] = map[string]interface{}{"code":1,"message":"注册成功"}
 	}
 	this.ServeJSON()
