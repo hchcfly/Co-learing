@@ -14,11 +14,13 @@ public:
         }
     }
     
-    void appendTail(int value) {
+    void appendTail(int value) 
+    {
         s1.push(value);
     }
     
-    int deleteHead() {
+    int deleteHead() 
+    {
         if(s2.empty())
         {
             if(s1.empty())
