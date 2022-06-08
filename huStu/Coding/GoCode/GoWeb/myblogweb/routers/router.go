@@ -2,7 +2,6 @@ package routers
 
 import (
 	"myblogweb/controllers"
-
 	"github.com/astaxie/beego"
 )
 
@@ -17,4 +16,5 @@ func init() {
 
 	beego.Router("/article/add",&controllers.AddArticleController{})  //写文章路由
 
+	//beego.Router("/article/:id",&controllers.ShowArticleController{})  //
 }
