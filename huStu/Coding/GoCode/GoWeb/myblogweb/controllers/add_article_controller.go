@@ -24,12 +24,10 @@ func (this * AddArticleController) Post() {
 	short := this.GetString("short")
 	content := this.GetString("content")
 	fmt.Printf("title: %s , tags: %s\n",title,tags)
-
 	//  实例化一个Article对象
 	art := models.Article{0,title,"hchc",tags,short,content,time.Now().Unix()}
 	//  文章数据插入数据库中
 	_ ,err := models.AddArticle(art)
-
 	//  返回给浏览器的数据
 	var response map[string]interface{}
 	if err == nil {

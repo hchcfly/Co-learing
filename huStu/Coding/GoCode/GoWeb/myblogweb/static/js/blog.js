@@ -32,8 +32,8 @@ $(document).ready(function () {
             }
         },
         submitHandler: function (form) {
-            var urlStr = "../views/register";
-            alert("urlStr:"+urlStr)
+            var urlStr = "/register";
+            // alert("urlStr:"+urlStr)
             $(form).ajaxSubmit({
                 url: urlStr,
                 type: "post",
@@ -79,16 +79,10 @@ $(document).ready(function () {
         submitHandler: function (form) {
             var urlStr = "/login"
             alert("urlStr:" + urlStr)
-            alert(data)
-
             $(form).ajaxSubmit({
                 url: urlStr,
                 type: "post",
                 dataType: "json",
-                data: {
-                    "code": code,
-                    "status":status
-                },
                 success: function (data, status) {
                     alert("data:" + data.message + ":" + status)
                     if (data.code == 1) {
@@ -105,7 +99,7 @@ $(document).ready(function () {
         }
     });
 
-    //添加文章的表单
+    //修改和添加文章的表单
     $("#write-art-form").validate({
         rules: {
             title: "required",
@@ -132,7 +126,15 @@ $(document).ready(function () {
             }
         },
         submitHandler: function (form) {
+            alert("hello")
             var urlStr = "/article/add";
+            //判断文章id确定提交的表单的服务器地址
+            //若id大于零，说明是修改文章
+            var artId = $("#write-article-id").val();
+            alert("artId:" + artId);
+            if (artId > 0) {
+                urlStr = "/article/update"
+            }
             alert("urlStr:" + urlStr);
             $(form).ajaxSubmit({
                 url: urlStr,
@@ -149,4 +151,39 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+
+    //文件
+    $("#album-upload-button").click(function () {
+        var filedata = $("#album-upload-file").val();
+        if (filedata.length <= 0) {
+            alert("请选择文件!");
+            return
+        }
+        //文件上传通过Formdata去储存文件的数据
+        var data = new FormData()
+        data.append("upload", $("#album-upload-file")[0].files[0]);
+        alert(data)
+        var urlStr = "/upload"
+        $.ajax({
+            url: urlStr,
+            type: "post",
+            dataType: "json",
+            contentType: false,
+            data: data,
+            processData: false,
+            success: function (data, status) {
+                alert(":data:" + data.message);
+                if (data.code == 1) {
+                    setTimeout(function () {
+                        window.location.href = "/album"
+                    }, 1000)
+                }
+            },
+            error: function (data, status) {
+                alert("err:" + data.message + ":" + status)
+            }
+        })
     })
+});

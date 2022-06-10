@@ -17,11 +17,13 @@ func InitMysql() {
 		db, _ = sql.Open("mysql", "root:huchen12345677@tcp(127.0.0.1:3306)/myblogweb")
 		CreateTableWithUser()
 		CreateTableWithArticle()
+		CreateTableWithAlbum()
 		fmt.Printf("db: %v\n", db)
 	}
 }
 //  操作数据库
 func ModifyDB(sql string,args ...interface{}) (int64,error) {
+	
 	result, err := db.Exec(sql, args...)
 	if err != nil {
 		log.Println(err)
@@ -59,14 +61,26 @@ func CreateTableWithArticle() {
 		createtime INT(10)
 		);`
 	ModifyDB(sql)
-
 }
+
+//创建图片存储表
+func CreateTableWithAlbum() {
+	sql := `CREATE TABLE IF NOT EXISTS album(
+		id INT(4) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		filename varchar(255),
+		filepath varchar(64),
+		status int(4),
+		createtime int(10)
+		);`
+	ModifyDB(sql)
+}
+
 
 //  查询文章表
 func QueryRowDB(sql string) *sql.Row {
 	return db.QueryRow(sql)
 }
-
+//查询多行数据
 func QueryDB(sql string) (*sql.Rows,error) {
 	return db.Query(sql)
 }

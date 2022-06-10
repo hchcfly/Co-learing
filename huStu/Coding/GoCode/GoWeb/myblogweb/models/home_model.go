@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"myblogweb/utils"
 	"strconv"
-	"bytes"
+    "bytes"
+    "github.com/astaxie/beego"
 )
 
 type HomeBlockParam struct {
@@ -29,9 +30,19 @@ type HomeBlockParam struct {
 }
 
 type TagLink struct {
-    TagName string
-    TagUrl  string
+    TagName string //标签名称
+    TagUrl  string //标签url
 }
+
+type HomeFooterPageCode struct {
+	HasPre   bool  //是否有前一页
+	HasNext  bool  //是否有后一页
+	ShowPage string //当前页
+	PreLink  string //前一页url
+	NextLink string //后一页url
+}
+
+
 //----------首页显示内容---------
 func MakeHomeBlocks(articles []Article, isLogin bool) template.HTML {
     htmlHome := ""
@@ -41,7 +52,6 @@ func MakeHomeBlocks(articles []Article, isLogin bool) template.HTML {
         homeParam.Id = art.Id
         homeParam.Title = art.Title
         homeParam.Tags = createTagsLinks(art.Tags)
-        fmt.Println("tag-->", art.Tags)
         homeParam.Short = art.Short
         homeParam.Content = art.Content
         homeParam.Author = art.Author
@@ -59,7 +69,6 @@ func MakeHomeBlocks(articles []Article, isLogin bool) template.HTML {
         t.Execute(&buffer, homeParam)
         htmlHome += buffer.String()
     }
-    fmt.Println("htmlHome-->",htmlHome)
     return template.HTML(htmlHome)
 }
 
@@ -71,4 +80,39 @@ func createTagsLinks(tags string) []TagLink {
         tagLink = append(tagLink, TagLink{tag, "/?tag=" + tag})
     }
     return tagLink
+}
+
+
+//-----------翻页功能--------------------
+func ConfigHomeFooterPageCode(page int) HomeFooterPageCode {
+    pageCode := HomeFooterPageCode{}
+    //先查询出总条数
+    count := GetArticleRowNum()
+    //配置文件中读取每一页的显示条数
+    pageRow,_ := beego.AppConfig.Int("articleListPageNum")
+    //计算当前总页数
+    allPageNum := (count-1)/(pageRow) + 1
+    fmt.Println("pager------------>",page)
+    fmt.Println("allpagenum -------->",allPageNum)
+    pageCode.ShowPage = fmt.Sprintf("%d/%d",page,allPageNum)
+
+    //当前页逻辑
+    if page <= 1 {
+        pageCode.HasPre = false
+    } else {
+        pageCode.HasPre = true
+    }
+
+    if page >= allPageNum {
+        pageCode.HasNext = false
+    } else {
+        pageCode.HasNext = true
+    }
+
+    //配置前一页的url
+    pageCode.PreLink = "/?page = " + strconv.Itoa(page-1)
+    //配置后一页的url
+    pageCode.PreLink = "/?page = " + strconv.Itoa(page+1)
+    fmt.Println(pageCode)
+    return pageCode
 }

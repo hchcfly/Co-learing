@@ -14,12 +14,10 @@ type RegisterController struct {
 
 func (this *RegisterController) Get() {
     this.TplName = "register.html"
-    // fmt.Println("this is Get-----------------------------------------")
 }
 
 //处理注册
 func (this *RegisterController) Post() {
-    // fmt.Println("this is ReigisterCOntroller-----------------------------------------")
 	//获取表单信息
 	username := this.GetString("username")
 	password := this.GetString("password")

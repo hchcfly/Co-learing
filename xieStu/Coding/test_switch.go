@@ -20,7 +20,6 @@ func f1(score int) {
 
 	   	}
 	*/
-
 	switch {
 	case score >= 90 && score <= 100:
 		fmt.Println("优秀")
@@ -35,6 +34,7 @@ func f1(score int) {
 	}
 
 }
+
 func main() {
 	var score int
 	fmt.Scan(&score)

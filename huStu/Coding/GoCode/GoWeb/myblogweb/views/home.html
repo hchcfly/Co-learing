@@ -9,10 +9,21 @@
 {{template "block/nav.html" .}}
 
 
-<!-- 添加文章显示 -->
 <div id="main">
-    {{.Content}}
-    
+{{.Content}}
+
+
+
+{{if .HasFooter}}
+    <div id="home-footer">
+        <a {{if .PageCode.HasPre}}href="{{.PageCode.PreLink}}" {{else}} class="disable" {{end}}>上一页</a>
+        <span>{{.PageCode.ShowPage}}页</span>
+        <a {{if .PageCode.HasNext}}href="{{.PageCode.NextLink}}" {{else}} class="disable" {{end}}>下一页</a>
+    </div>
+{{end}}
+
+
+</div>
 
 </body>
 </html>
