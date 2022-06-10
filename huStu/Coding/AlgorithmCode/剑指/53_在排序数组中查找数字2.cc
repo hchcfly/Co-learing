@@ -2,7 +2,7 @@ class Solution {
 public:
     int missingNumber(vector<int>& nums) 
     {
-        //--------------------------1
+        //--------------------------10(N)
         // int len = nums.size();
         // for(int i=0;i<nums.size();i++)
         // {
