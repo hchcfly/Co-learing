@@ -194,3 +194,19 @@ Array(ArraySize size); //传入代理类
 };
 ```
 
+## 条款6:区别incr/decr操作符的前置和后置形式
+
+> 如何区分incr/decr操作符的前置和后置形式?
+
+```c++
+由于incr/decr操作符的前置和后置形式都不需要参数,这样不好区分,所以让后置式有一个int自变量,并且在调用时,编译器默默给int = 0
+
+class UPInt
+{
+public:
+    UPInt& operator++();  //前置
+    const UPInt operator++(int); //后置
+};
+```
+> 前置返回一个reference,后置返回一个const对象.(++++i合法,i++++不合法)
+
