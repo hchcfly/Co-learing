@@ -71,12 +71,126 @@ update(const_cast<SpecialWidget*>(&csw)); //可以.将&csw的常量性质去除�
 
 
 ## 条款3:绝对不要以polymorphically方式处理数组
+> 多态和指针算术不能混用,多态和数组不能混用,数组几乎总是会涉及指针的算术运算.
 
+> 由于数组的访问array[i]相当于*(array+i),也就是需要进行指针运算,而指针运算需要根据当前对象的sizeof()来移动,由于派生类和基类的sizeof不同,所以指针的移动不会到理想的位置.
 
+```c++
+class BST {...};
+class BalancedBST : public BST {...};
 
+void printBSTArray(ostream& s,const BST array[],int numElements)
+{
+    for(int i=0;i<numElements;i++)
+    {
+        s << array[i];
+    }
+}
+BST BSTArray[10];
+printBSTArray(cout ,BSTArray,10); //没问题
+BalancedBST BalancedBSTArray[10]
+//无法预期的结果. 指针运算的是sizeof(BST),而不是sizeof(BalancedBST)
+printBSTArray(cout ,BalancedBSTArray,10);
+```
 
++ 如何避免?(条款34)
 
-
-
+```
+具体类不要继承自另一个具体类? 
+```
 
 ## 条款4:非必要不提供default constructor
+
++ 什么是default construct?
+
+> 不给任何自变量就可以调用的构造函数.
+
++ 没有default ctor的类如何生成对象数组?
+
+```c++
+class EquipmentPiece {
+public:
+    EquipmentPiece(int IDNumber)
+    {   
+    }
+};
+
+//EquipmentPiece bestPieces[10]; //没有default ctor该语句出错.
+    
+    //EquipmentPiece *bestPieces = new EquipmentPiece[10];//没有default ctor该语句出错.
+    
+    //可以产生非heap数组
+    // EquipmentPiece bestPiece[] = {
+    //     EquipmentPiece(1),
+    //     EquipmentPiece(2)
+    // };
+
+    //如何产生heap数组呢?
+    //使用指针数组,然后对每一个指针 new EquipmentPiece(id)
+
+```
+
+# 操作符
+
+> C++允许编译器在不同类型之间执行隐式转换.其中有两种函数允许编译器执行这样的转换,单自变量ctor和隐式类型转换操作符.
+
+```c++
+单自变量ctor:是指能够以单一自变量成功调用的ctor,该ctor可能声明拥有单一参数,也可能声明拥有多个参数,并且除了第一参数之外都有默认值.
+
+class Name
+{
+public:
+    Name(const string& s); //可以将string转为Name
+};
+
+class Rational
+{
+public:
+    Rational(int numerator = 0,
+             int denominator = 1); //可以将string转为Name
+};
+
+void fun(int a);
+void fun2(inta ,int b=0);
+```
+
+```c++
+隐式类型转换操作符:
+class Rational
+{
+public:
+    operator double() const; //将Rational转换为double
+};
+
+Rational r(1,2);
+double d = 0.5 * 4;  //r在此会转换为doule类型然后进行运算.
+```
++ 如何消除隐式类型转换操作符的副作用?
+
+> 应该尽量避免使用类型转换操作符.例如标准库中,string并不含有隐式转换到C风格的str的,而是提供了一个显式的成员函数用来转化string.c_str().
+
++ 如何消除单自变量ctor完成的隐式转换?
+
+> 关键词explicit,防止隐式类型转换
+
+> 使用代理类来阻止隐式转换
+```c++
+template<class T>
+class Array
+{
+public:
+
+class ArraySize
+{
+public:
+    ArraySize(int numElements):theSize(numElements) { }
+    int size() const { return theSize; }
+
+    private: 
+        int theSize;
+}
+
+Array(ArraySize size); //传入代理类
+};
+```
+
