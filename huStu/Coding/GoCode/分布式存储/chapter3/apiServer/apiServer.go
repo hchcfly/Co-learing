@@ -4,17 +4,17 @@ import (
 	"./heartbeat"
 	"./objects"
 	"./locate"
+	"./version"
 	"net/http"
-	"os"
 	"log"
+	"os"
 )
 
 
 func main() {
-	//  心跳包
-	go heartbeat.StartHeartbeat()
-	//  定位文件是否存在
-	go locate.StartLocate()
+	go heartbeat.ListenHeartbeat()
 	http.HandleFunc("/objects/",objects.Handler)
+	http.HandleFunc("/locate/",locate.Handler)
+	http.HandleFunc("/versions/",versions.Handler)
 	log.Fatal(http.ListenAndServe(os.Getenv("LISTEN_ADDRESS"),nil))
 }

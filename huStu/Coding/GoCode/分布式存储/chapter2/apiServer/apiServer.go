@@ -1,4 +1,4 @@
-package apiServer
+package main
 
 import (
 	"./heartbeat"
@@ -14,5 +14,5 @@ func main() {
 	go heartbeat.ListenHeartbeat()
 	http.HandleFunc("/objects/",objects.Handler)
 	http.HandleFunc("/locate/",locate.Handler)
-	log.Fatal(http.ListenAndServer(os.Getenv("LISTEN_ADDRESS"),nil))
+	log.Fatal(http.ListenAndServe(os.Getenv("LISTEN_ADDRESS"),nil))
 }
