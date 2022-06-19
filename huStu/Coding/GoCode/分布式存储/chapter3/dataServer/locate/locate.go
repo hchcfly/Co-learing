@@ -2,7 +2,7 @@ package locate
 
 import(
 	"os"
-	"fmt"
+	//"fmt"
 	"../../../lib/rabbitmq"
 	"strconv"
 )
@@ -23,9 +23,9 @@ func StartLocate() {
 	//  返回一个channel,用来接收消息
 	c := q.Consume()
 	for msg := range c {
-		fmt.Println("Body :",msg.Body)
+		//fmt.Println("Body :",msg.Body)
 		object,e := strconv.Unquote(string(msg.Body))
-		fmt.Println("Unquote Body :",msg.Body)
+		//fmt.Println("Unquote Body :",msg.Body)
 		if e != nil {
 			panic(e)
 		}

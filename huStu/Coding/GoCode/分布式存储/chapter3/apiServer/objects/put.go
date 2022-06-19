@@ -4,6 +4,9 @@ import(
 	"net/http"
 	"log"
 	"strings"
+	"net/url"
+	"../../../lib/es"
+	"../../../lib/utils"
 )
 /*
 将HTTP请求转发给数据服务

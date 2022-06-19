@@ -5,9 +5,10 @@ import (
 	"strings"
 	"log"
 	"encoding/json"
+	"../../../lib/es"
 )
 //  对应版本的处理
-func Handler(w http.ResponserWriter,r *http.Request) {
+func Handler(w http.ResponseWriter,r *http.Request) {
 	m := r.Method
 	//  当不为GET方法
 	if m != http.MethodGet {

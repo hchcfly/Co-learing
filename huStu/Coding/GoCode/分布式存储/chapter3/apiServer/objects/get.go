@@ -5,11 +5,14 @@ import(
 	"log"
 	"io"
 	"strings"
+	"strconv"
+	"net/url"
+	"../../../lib/es"
 )
 
 func get(w http.ResponseWriter,r *http.Request) {
 	//  从URL中解析<object_name>部分赋值给object
-	object := strings.Split(r.URL.EscapedPath(),"/")[2]
+	name := strings.Split(r.URL.EscapedPath(),"/")[2]
 	//  查询版本号数组
 	versionId := r.URL.Query()["version"]
 	version := 0
@@ -17,8 +20,8 @@ func get(w http.ResponseWriter,r *http.Request) {
 	if len(versionId) != 0{
 		//  获取对象对应版本号
 		version,e = strconv.Atoi(versionId[0])
-		if err != nil {
-			log.Println(err)
+		if e != nil {
+			log.Println(e)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
