@@ -19,8 +19,10 @@ func put(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	//  根据对象的hash值存储对象
-	c , e := storeObject(r.Body,url.PathEscape(hash))
+	//  从http请求头部获取对象的size值
+	size := utils.GetSizeFromHeader(r.Header)
+	//  根据对象的hash值存储对象 + size
+	c , e := storeObject(r.Body,hash,size)
 	if e != nil {
 		log.Println(e)
 		w.WriteHeader(c)
