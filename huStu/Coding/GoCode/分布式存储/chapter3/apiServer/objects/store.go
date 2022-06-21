@@ -22,7 +22,7 @@ func storeObject(r io.Reader,hash string,size int64) (int ,error) {
 	reader := io.TeeReader(r,stream)
 	d := utils.CalculateHash(reader)
 	if d != hash {
-		//  删除临时对象
+		//  删除临时对象DELETE
 		stream.Commit(false)
 		return http.StatusBadRequest,fmt.Errorf("object hash mismatch, calculated=%s, requested=%s", d, hash)
 	}
@@ -33,7 +33,7 @@ func storeObject(r io.Reader,hash string,size int64) (int ,error) {
 	// if e != nil {
 	// 	return http.StatusInternalServerError,e
 	// }
-	//  将临时对象转正并返回
+	//  将临时对象转正并返回 PUT
 	stream.Commit(true)
 	return http.StatusOK,nil
 }

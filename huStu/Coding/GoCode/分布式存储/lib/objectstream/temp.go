@@ -8,10 +8,12 @@ import (
 )
 
 type TempPutStream struct {
-	Server string
+	Server string   //  数据服务的节点地址
 	Uuid   string
 }
 
+//server: 数据服务的节点地址
+//objec,size: 表示对象的散列值和大小
 func NewTempPutStream(server, object string, size int64) (*TempPutStream, error) {
 	request, e := http.NewRequest("POST", "http://"+server+"/temp/"+object, nil)
 	if e != nil {
@@ -31,6 +33,7 @@ func NewTempPutStream(server, object string, size int64) (*TempPutStream, error)
 }
 
 func (w *TempPutStream) Write(p []byte) (n int, err error) {
+	//更新方式
 	request, e := http.NewRequest("PATCH", "http://"+w.Server+"/temp/"+w.Uuid, strings.NewReader(string(p)))
 	if e != nil {
 		return 0, e
